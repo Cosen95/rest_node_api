@@ -2,6 +2,17 @@ const Koa = require("koa");
 const app = new Koa();
 const bodyParser = require("koa-bodyparser");
 const routing = require("./routes");
+
+app.use(async (ctx, next) => {
+  try {
+    await next();
+  } catch (err) {
+    ctx.status = err.status || err.statusCode || 500;
+    ctx.body = {
+      message: err.message
+    };
+  }
+});
 app.use(bodyParser());
 
 routing(app);
