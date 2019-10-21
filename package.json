@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app"
+    "dev": "nodemon app",
+    "start": "cross-env NODE_ENV=production node app"
   },
   "keywords": [
     "node",
@@ -14,8 +15,10 @@
   "author": "fengshuan95@gmail.com",
   "license": "ISC",
   "dependencies": {
+    "cross-env": "^6.0.3",
     "koa": "^2.10.0",
     "koa-bodyparser": "^4.2.1",
+    "koa-json-error": "^3.1.2",
     "koa-router": "^7.4.0"
   },
   "devDependencies": {
