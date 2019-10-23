@@ -1,9 +1,17 @@
 const Koa = require("koa");
-const app = new Koa();
 const bodyParser = require("koa-bodyparser");
 const parameter = require("koa-parameter");
 const error = require("koa-json-error");
+const mongoose = require("mongoose");
 const routing = require("./routes");
+const app = new Koa();
+const { connectionStr } = require("./config");
+mongoose.connect(
+  connectionStr,
+  { useUnifiedTopology: true, useNewUrlParser: true },
+  () => console.log("mongodb 连接成功了！")
+);
+mongoose.connection.on("error", console.error);
 
 // 自定义简易版错误处理
 // app.use(async (ctx, next) => {

@@ -20,7 +20,8 @@
     "koa-bodyparser": "^4.2.1",
     "koa-json-error": "^3.1.2",
     "koa-parameter": "^3.0.1",
-    "koa-router": "^7.4.0"
+    "koa-router": "^7.4.0",
+    "mongoose": "^5.7.6"
   },
   "devDependencies": {
     "nodemon": "^1.19.4"
