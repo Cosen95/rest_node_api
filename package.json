@@ -19,6 +19,7 @@
     "koa": "^2.10.0",
     "koa-bodyparser": "^4.2.1",
     "koa-json-error": "^3.1.2",
+    "koa-parameter": "^3.0.1",
     "koa-router": "^7.4.0"
   },
   "devDependencies": {

@@ -11,15 +11,26 @@ class UserController {
     ctx.body = db[ctx.params.id * 1];
   }
   create(ctx) {
-    console.log("ctx", ctx);
+    ctx.verifyParams({
+      name: { type: "string", required: true }
+    });
     db.push(ctx.request.body);
     ctx.body = ctx.request.body;
   }
   update(ctx) {
+    if (ctx.params.id * 1 >= db.length) {
+      ctx.throw(412, "先决条件失败：id大于等于数组长度");
+    }
+    ctx.verifyParams({
+      name: { type: "string", required: true }
+    });
     db[ctx.params.id * 1] = ctx.request.body;
     ctx.body = ctx.request.body;
   }
   delete(ctx) {
+    if (ctx.params.id * 1 >= db.length) {
+      ctx.throw(412, "先决条件失败：id大于等于数组长度");
+    }
     db.splice(ctx.params.id * 1, 1);
     ctx.status = 204;
   }

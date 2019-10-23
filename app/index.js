@@ -1,6 +1,7 @@
 const Koa = require("koa");
 const app = new Koa();
 const bodyParser = require("koa-bodyparser");
+const parameter = require("koa-parameter");
 const error = require("koa-json-error");
 const routing = require("./routes");
 
@@ -23,7 +24,7 @@ app.use(
   })
 );
 app.use(bodyParser());
-
+app.use(parameter(app));
 routing(app);
 
 app.listen(3000, () => console.log("程序启动在3000端口了"));
