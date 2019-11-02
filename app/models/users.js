@@ -14,15 +14,16 @@ const userSchema = new Schema({
     required: true
   },
   headline: { type: String },
-  locations: { type: [{ type: String }] },
-  business: { type: String },
+  locations: { type: [{ type: String }], select: false },
+  business: { type: String, select: false },
   employments: {
     type: [
       {
         company: { type: String },
         job: { type: String }
       }
-    ]
+    ],
+    select: false
   },
   educations: {
     type: [
@@ -33,7 +34,8 @@ const userSchema = new Schema({
         entrance_year: { type: Number },
         graduation_year: { type: Number }
       }
-    ]
+    ],
+    select: false
   }
 });
 
