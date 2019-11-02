@@ -1,6 +1,7 @@
 const Koa = require("koa");
 const path = require("path");
 const koaBody = require("koa-body");
+const koaStatic = require("koa-static");
 const parameter = require("koa-parameter");
 const error = require("koa-json-error");
 const mongoose = require("mongoose");
@@ -25,7 +26,7 @@ mongoose.connection.on("error", console.error);
 //     };
 //   }
 // });
-
+app.use(koaStatic(path.join(__dirname, "public")));
 app.use(
   error({
     postFormat: (e, { stack, ...rest }) =>
