@@ -90,6 +90,13 @@ class UserController {
     const users = await User.find({ following: ctx.params.id });
     ctx.body = users;
   }
+  async checkUserExist(ctx, next) {
+    const user = await User.findById(ctx.params.id);
+    if (!user) {
+      ctx.throw(404, "用户不存在");
+    }
+    await next();
+  }
   async follow(ctx) {
     const me = await User.findById(ctx.state.user._id).select("+following");
     if (!me.following.map(id => id.toString()).includes(ctx.params.id)) {

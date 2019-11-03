@@ -13,6 +13,7 @@ const {
   login,
   listFollowing,
   listFollowers,
+  checkUserExist,
   follow,
   unfollow
 } = require("../controllers/users");
@@ -47,8 +48,8 @@ router.get("/:id/following", listFollowing);
 
 router.get("/:id/followers", listFollowers);
 
-router.put("/following/:id", auth, follow);
+router.put("/following/:id", auth, checkUserExist, follow);
 
-router.delete("/following/:id", auth, unfollow);
+router.delete("/following/:id", auth, checkUserExist, unfollow);
 
 module.exports = router;
