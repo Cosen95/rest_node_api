@@ -77,6 +77,23 @@ class UserController {
     const token = jsonwebtoken.sign({ _id, name }, secret, { expiresIn: "1d" });
     ctx.body = { token };
   }
+  async listFollowing(ctx) {
+    const user = await User.findById(ctx.params.id)
+      .select("+following")
+      .populate("following");
+    if (!user) {
+      ctx.throw(404);
+    }
+    ctx.body = user.following;
+  }
+  async follow(ctx) {
+    const me = await User.findById(ctx.state.user._id).select("+following");
+    if (!me.following.map(id => id.toString()).includes(ctx.params.id)) {
+      me.following.push(ctx.params.id);
+      me.save();
+    }
+    ctx.status = 204;
+  }
 }
 
 module.exports = new UserController();
