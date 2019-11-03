@@ -12,7 +12,9 @@ const {
   delete: del,
   login,
   listFollowing,
-  follow
+  listFollowers,
+  follow,
+  unfollow
 } = require("../controllers/users");
 
 // const auth = async (ctx, next) => {
@@ -43,6 +45,10 @@ router.post("/login", login);
 
 router.get("/:id/following", listFollowing);
 
+router.get("/:id/followers", listFollowers);
+
 router.put("/following/:id", auth, follow);
+
+router.delete("/following/:id", auth, unfollow);
 
 module.exports = router;
