@@ -3,7 +3,12 @@ const jsonwebtoken = require("jsonwebtoken");
 const { secret } = require("../config");
 class UserController {
   async find(ctx) {
-    ctx.body = await User.find();
+    const { per_page = 10 } = ctx.query;
+    const page = Math.max(ctx.query.page * 1, 1) - 1;
+    const perPage = Math.max(per_page * 1, 1);
+    ctx.body = await User.find()
+      .limit(perPage)
+      .skip(page * perPage);
   }
   async findById(ctx) {
     const { fields } = ctx.query;
