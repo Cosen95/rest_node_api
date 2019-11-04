@@ -34,7 +34,7 @@ const auth = jwt({ secret });
 
 router.get("/", find);
 
-router.post("/", create);
+router.post("/", auth, create);
 
 router.get("/:id", findById);
 

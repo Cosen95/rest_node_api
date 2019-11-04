@@ -38,3 +38,5 @@ class TopicController {
     ctx.body = topic;
   }
 }
+
+module.exports = new TopicController();
