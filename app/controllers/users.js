@@ -19,7 +19,24 @@ class UserController {
         .filter(f => f)
         .map(f => " +" + f)
         .join("");
-    const user = await User.findById(ctx.params.id).select(selectFields);
+    const populateStr =
+      fields &&
+      fields
+        .split(";")
+        .filter(f => f)
+        .map(f => {
+          if (f === "employments") {
+            return "employments.company employments.job";
+          }
+          if (f === "educations") {
+            return "educations.school educations.major";
+          }
+          return f;
+        })
+        .join(" ");
+    const user = await User.findById(ctx.params.id)
+      .select(selectFields)
+      .populate(populateStr);
     if (!user) {
       ctx.throw(404, "用户不存在");
     }
