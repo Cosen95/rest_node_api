@@ -104,7 +104,7 @@ class UserController {
       .select("+following")
       .populate("following");
     if (!user) {
-      ctx.throw(404);
+      ctx.throw(404, "用户不存在");
     }
     ctx.body = user.following;
   }
@@ -135,6 +135,38 @@ class UserController {
       me.save();
     }
     ctx.status = 204;
+  }
+  async followTopic(ctx) {
+    const me = await User.findById(ctx.state.user._id).select(
+      "+followingTopics"
+    );
+    if (!me.followingTopics.map(id => id.toString()).includes(ctx.params.id)) {
+      me.followingTopics.push(ctx.params.id);
+      me.save();
+    }
+    ctx.status = 204;
+  }
+  async unfollowTopic(ctx) {
+    const me = await User.findById(ctx.state.user._id).select(
+      "+followingTopics"
+    );
+    const index = me.followingTopics
+      .map(id => id.toString())
+      .indexOf(ctx.params.id);
+    if (index > -1) {
+      me.followingTopics.splice(index, 1);
+      me.save();
+    }
+    ctx.status = 204;
+  }
+  async listFollowingTopic(ctx) {
+    const user = await User.findById(ctx.params.id)
+      .select("+followingTopics")
+      .populate("followingTopics");
+    if (!user) {
+      ctx.throw(404, "用户不存在");
+    }
+    ctx.body = user.followingTopics;
   }
 }
 
