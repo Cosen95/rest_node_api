@@ -21,7 +21,7 @@ class QuestionController {
         .join("");
     const question = await Question.findById(ctx.params.id)
       .select(selectFields)
-      .populate("questioner");
+      .populate("questioner topics");
     ctx.body = question;
   }
   async create(ctx) {

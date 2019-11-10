@@ -11,6 +11,15 @@ const questionSchema = new Schema({
     ref: "User",
     required: true,
     select: false
+  },
+  topics: {
+    type: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Topic"
+      }
+    ],
+    select: false
   }
 });
 
