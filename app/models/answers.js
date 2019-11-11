@@ -11,7 +11,8 @@ const answerSchema = new Schema({
     required: true,
     select: false
   },
-  questionId: { type: String, required: true }
+  questionId: { type: String, required: true },
+  voteCount: { type: Number, required: true, default: 0 }
 });
 
 module.exports = model("Answer", answerSchema);
