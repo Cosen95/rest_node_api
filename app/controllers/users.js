@@ -174,7 +174,7 @@ class UserController {
     const questions = await Question.find({ questioner: ctx.params.id });
     ctx.body = questions;
   }
-  async likingAnswer(ctx) {
+  async likingAnswer(ctx, next) {
     const me = await User.findById(ctx.state.user._id).select("+likingAnswers");
     if (!me.likingAnswers.map(id => id.toString()).includes(ctx.params.id)) {
       me.likingAnswers.push(ctx.params.id);
@@ -182,6 +182,7 @@ class UserController {
       await Answer.findByIdAndUpdate(ctx.params.id, { $inc: { voteCount: 1 } });
     }
     ctx.status = 204;
+    await next();
   }
   async unlikingAnswer(ctx) {
     const me = await User.findById(ctx.state.user._id).select("+likingAnswers");
@@ -206,7 +207,7 @@ class UserController {
     }
     ctx.body = user.likingAnswers;
   }
-  async disLikingAnswer(ctx) {
+  async disLikingAnswer(ctx, next) {
     const me = await User.findById(ctx.state.user._id).select(
       "+dislikingAnswers"
     );
@@ -215,6 +216,7 @@ class UserController {
       me.save();
     }
     ctx.status = 204;
+    await next();
   }
   async unDisLikingAnswer(ctx) {
     const me = await User.findById(ctx.state.user._id).select(

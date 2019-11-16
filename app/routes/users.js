@@ -73,4 +73,33 @@ router.get("/:id/followingTopic", listFollowingTopic);
 
 router.get("/:id/questions", listQuestions);
 
+router.get("/:id/likingAnswers", listLikingAnswers);
+
+router.put(
+  "/likingAnswers/:id",
+  auth,
+  checkAnswerExist,
+  likingAnswer,
+  unDisLikingAnswer
+);
+
+router.delete("/likingAnswers/:id", auth, checkAnswerExist, unlikingAnswer);
+
+router.get("/:id/dislikingAnswers", listDisLikingAnswers);
+
+router.put(
+  "/dislikingAnswers/:id",
+  auth,
+  checkAnswerExist,
+  disLikingAnswer,
+  unlikingAnswer
+);
+
+router.delete(
+  "/dislikingAnswers/:id",
+  auth,
+  checkAnswerExist,
+  unDisLikingAnswer
+);
+
 module.exports = router;
