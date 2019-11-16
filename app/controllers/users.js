@@ -206,6 +206,38 @@ class UserController {
     }
     ctx.body = user.likingAnswers;
   }
+  async disLikingAnswer(ctx) {
+    const me = await User.findById(ctx.state.user._id).select(
+      "+dislikingAnswers"
+    );
+    if (!me.dislikingAnswers.map(id => id.toString()).includes(ctx.params.id)) {
+      me.dislikingAnswers.push(ctx.params.id);
+      me.save();
+    }
+    ctx.status = 204;
+  }
+  async unDisLikingAnswer(ctx) {
+    const me = await User.findById(ctx.state.user._id).select(
+      "+dislikingAnswers"
+    );
+    const index = me.dislikingAnswers
+      .map(id => id.toString())
+      .indexOf(ctx.params.id);
+    if (index > -1) {
+      me.dislikingAnswers.splice(index, 1);
+      me.save();
+    }
+    ctx.status = 204;
+  }
+  async listDisLikingAnswers(ctx) {
+    const user = await User.findById(ctx.params.id)
+      .select("+dislikingAnswers")
+      .populate("dislikingAnswers");
+    if (!user) {
+      ctx.throw(404, "用户不存在");
+    }
+    ctx.body = user.dislikingAnswers;
+  }
 }
 
 module.exports = new UserController();

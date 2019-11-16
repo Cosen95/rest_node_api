@@ -19,9 +19,17 @@ const {
   followTopic,
   unfollowTopic,
   listFollowingTopic,
-  listQuestions
+  listQuestions,
+  likingAnswer,
+  unlikingAnswer,
+  listLikingAnswers,
+  disLikingAnswer,
+  unDisLikingAnswer,
+  listDisLikingAnswers
 } = require("../controllers/users");
 const { checkTopicExist } = require("../controllers/topics");
+
+const { checkAnswerExist } = require("../controllers/answers");
 
 // const auth = async (ctx, next) => {
 //   const { authorization = "" } = ctx.request.header;
