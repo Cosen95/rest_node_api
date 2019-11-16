@@ -55,6 +55,10 @@ const userSchema = new Schema({
   dislikingAnswers: {
     type: [{ type: Schema.Types.ObjectId, ref: "Answer" }],
     select: false
+  },
+  collectingAnswers: {
+    type: [{ type: Schema.Types.ObjectId, ref: "Answer" }],
+    select: false
   }
 });
 
