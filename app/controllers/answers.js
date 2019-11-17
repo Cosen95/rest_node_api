@@ -67,7 +67,10 @@ class AnswerController {
       ctx.throw(404, "答案不存在");
     }
     // 只有questionId存在时才执行此校验，赞、踩答案不执行此校验逻辑
-    if (ctx.params.questionId && answer.questionId !== ctx.params.questionId) {
+    if (
+      ctx.params.questionId &&
+      answer.questionId.toString() !== ctx.params.questionId
+    ) {
       ctx.throw(404, "该问题下没有此答案");
     }
     ctx.state.answer = answer;
