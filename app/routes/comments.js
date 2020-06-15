@@ -13,6 +13,7 @@ const {
   checkCommentExist,
   checkCommentator
 } = require("../controllers/comments");
+const { checkAnswerExist } = require("../controllers/answers");
 
 const auth = jwt({ secret });
 
